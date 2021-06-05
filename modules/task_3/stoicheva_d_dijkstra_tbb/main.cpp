@@ -33,19 +33,19 @@ std::vector<int> create_random_graph(const size_t points,
 
 TEST(Tbb, Test_Time) {
     const size_t root = 1;
-    const size_t pointsCount = 5000;
+    const size_t pointsCount = 1000;
     tbb::tick_count time_start, time_end;
 
     std::vector<int> graph = create_random_graph(pointsCount, 100);
     // print_graph(g raph, pointsCount);
 
     time_start = tbb::tick_count::now();
-    auto distances_seq = dijkstra(graph, root, 4800);
+    auto distances_seq = dijkstra(graph, root, 800);
     time_end = tbb::tick_count::now();
     std::cout << "Sequential Time: " << (time_end - time_start).seconds() << std::endl;
 
     time_start = tbb::tick_count::now();
-    auto distances_parallel = dijkstra_tbb(graph, root, 4800);
+    auto distances_parallel = dijkstra_tbb(graph, root, 800);
     time_end = tbb::tick_count::now();
     std::cout << "Parallel Time: " << (time_end - time_start).seconds() << std::endl;
     ASSERT_EQ(distances_seq, distances_parallel);
